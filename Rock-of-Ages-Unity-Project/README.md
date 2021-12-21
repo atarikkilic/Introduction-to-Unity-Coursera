@@ -2,7 +2,7 @@
 
 ## Project Description
 
-In this project, you'll spawn a random rock with a random velocity every second, making sure there are never more than 3 rocks in the game window. When a rock leaves the game window, that rock gets destroyed.
+In this project, I'll spawn a random rock with a random velocity every second, making sure there are never more than 3 rocks in the game window. When a rock leaves the game window, that rock gets destroyed.
 
 ## Test Steps
 
