@@ -69,7 +69,7 @@ public class Character : MonoBehaviour
         {
             position.y = ScreenUtils.ScreenTop - colliderHalfWidth;
         }
-        else if (position.y + colliderHalfHeight < ScreenUtils.ScreenBottom)
+        else if (position.y - colliderHalfHeight < ScreenUtils.ScreenBottom)
         {
             position.y = ScreenUtils.ScreenBottom + colliderHalfWidth;
         }
