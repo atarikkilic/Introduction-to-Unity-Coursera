@@ -11,6 +11,11 @@ public class Character : MonoBehaviour
     float colliderHalfWidth;
     float colliderHalfHeight;
 
+    // movement support
+
+    const float MoveUnitsPerSecond = 5;
+
+
     /// <summary>
     ///  Use this for initialization
     /// </summary>
@@ -26,9 +31,21 @@ public class Character : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-      
+        // move based on input
+        Vector3 position = transform.position;
+        float horizontalInput = Input.GetAxis("Horizontal");
+        if (horizontalInput != 0)
+        {
+            position.x += MoveUnitsPerSecond * horizontalInput * Time.deltaTime;
+        }
 
-        // move character to mouse position and clamp in screen
+        float verticalInput = Input.GetAxis("Vertical");
+        if (verticalInput != 0)
+        {
+            position.y += MoveUnitsPerSecond * verticalInput * Time.deltaTime;
+        }
+
+        // move character to new position and clamp in screen
         transform.position = position;
         ClampInScreen();
     }
