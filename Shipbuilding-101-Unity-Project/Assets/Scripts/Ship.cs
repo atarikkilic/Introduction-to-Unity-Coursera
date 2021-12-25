@@ -10,6 +10,7 @@ public class Ship : MonoBehaviour
     const float ThrustForce = 3;
     CircleCollider2D shipCollider;
     float shipColliderRadius;
+    const float RotateDegreesPerSecond = 10;
 
     // Start is called before the first frame update
     void Start()
@@ -22,6 +23,23 @@ public class Ship : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
+        // calculate rotation amount and apply rotation
+        float rotationAmount = RotateDegreesPerSecond * Time.deltaTime;
+        float rotationInput = Input.GetAxis("Rotate");
+        if (rotationInput != 0)
+        {
+            if (rotationInput < 0)
+            {
+            rotationAmount *= -1;
+            }
+
+            // change thrust direction applied to the ship to move it in the direction 
+            transform.Rotate(Vector3.forward, rotationAmount);
+            float zRotation = transform.eulerAngles.z * Mathf.Deg2Rad;
+            thrustDirection.x = Mathf.Cos(zRotation);
+            thrustDirection.y = Mathf.Sin(zRotation);
+        }
         
     }
 
@@ -41,6 +59,7 @@ public class Ship : MonoBehaviour
     /// </summary>
     void OnBecameInvisible()
     {
+        // check right, left, bottom, and top sides
         if (position.x - shipColliderRadius <= ScreenUtils.ScreenLeft)
 		{
 			position.x = ScreenUtils.ScreenRight + shipColliderRadius;
@@ -50,7 +69,17 @@ public class Ship : MonoBehaviour
 		{
 			position.x = ScreenUtils.ScreenLeft - shipColliderRadius;
 		}
+        if (position.y + shipColliderRadius >= ScreenUtils.ScreenTop)
+        {
+            position.y = ScreenUtils.ScreenBottom - shipColliderRadius;
+        }
 
+        else if (position.y - shipColliderRadius <= ScreenUtils.ScreenBottom)
+        {
+            position.y = ScreenUtils.ScreenTop + shipColliderRadius;
+        }
+
+        
         transform.position = position;
     }
 }
